@@ -1,0 +1,9 @@
+---
+- hosts: all
+  user: vagrant
+  sudo: True
+  roles:
+   - geerlingguy.git
+   - geerlingguy.mysql
+   - grlee.apache_ubuntu
+   - andyceo.php
