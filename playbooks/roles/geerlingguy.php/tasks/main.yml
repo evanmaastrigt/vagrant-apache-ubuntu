@@ -15,6 +15,10 @@
   notify: restart webserver
   when: ansible_os_family == 'RedHat'
 
+- name: Run sudo apt-get update on Debian based machines.
+  shell: sudo apt-get update
+  when: ansible_os_family == 'Debian'
+
 - name: Ensure PHP packages are installed (Debian).
   apt: >
     name={{ item }}
