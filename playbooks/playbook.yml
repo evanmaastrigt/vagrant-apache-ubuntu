@@ -3,7 +3,8 @@
   user: vagrant
   sudo: True
   roles:
+   - geerlingguy.php
    - geerlingguy.git
    - geerlingguy.mysql
    - grlee.apache_ubuntu
-   - andyceo.php
+   - geerlingguy.composer
