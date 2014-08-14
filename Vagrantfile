@@ -13,5 +13,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbooks/playbook.yml"
+    config.vm.synced_folder "workspace/", "/home/vagrant/workspace"
   end
 end
