@@ -9,5 +9,7 @@
   command: /usr/sbin/a2dissite 000-default removes=/etc/apache/sites-enabled/000-default
   sudo: yes  
 
-
+- name: Enable mod rewrite
+  command: a2enmod rewrite
+  sudo: yes
 

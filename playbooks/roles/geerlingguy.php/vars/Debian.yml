@@ -13,4 +13,6 @@ __php_packages:
   - php5-gd
   - php5-mysql
   - php5-intl
+  - php5-mongo
+  - php5-xdebug
 php_webserver_daemon: "apache2"
