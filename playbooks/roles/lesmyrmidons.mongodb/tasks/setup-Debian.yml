@@ -6,6 +6,18 @@
 - name: Debian | Add source sources
   apt_repository: repo='{{ mongodb_repository }}' update_cache=yes
 
+- name: Locale fix to prevent error on install pt1
+  command: "locale-gen en_US en_US.UTF-8 nl_NL nl_NL.UTF-8"
+  sudo: yes
+
+- name: Locale fix to prevent error on install pt2
+  command: dpkg-reconfigure locales
+  sudo: yes
+
+- name: add pymongo
+  pip: name=pymongo
+  sudo: yes
+
 - name: Debian | Install Packages
   apt: pkg={{ item }} state=installed
   with_items: mongodb_packages

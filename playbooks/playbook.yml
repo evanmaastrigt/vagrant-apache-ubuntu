@@ -8,4 +8,5 @@
    - geerlingguy.mysql
    - grlee.apache_ubuntu
    - geerlingguy.composer
+   - mbasanta.pip
    - lesmyrmidons.mongodb

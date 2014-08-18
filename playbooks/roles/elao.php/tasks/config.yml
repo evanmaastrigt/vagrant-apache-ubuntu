@@ -1,0 +1,23 @@
+---
+
+- name: config cli
+  ini_file: >
+    dest=/etc/php5/cli/conf.d/{{ php_config }}
+    section="PHP"
+    option={{ item.key }}
+    value={{ item.value }}
+  when: php_config_cli|length > 0
+  with_dict: php_config_cli
+  sudo: yes
+
+- name: config fpm
+  ini_file: >
+    dest=/etc/php5/fpm/conf.d/{{ php_config }}
+    section="PHP"
+    option={{ item.key }}
+    value={{ item.value }}
+  when: php_config_fpm|length > 0
+  with_dict: php_config_fpm
+  notify:
+    - php restart
+  sudo: yes
