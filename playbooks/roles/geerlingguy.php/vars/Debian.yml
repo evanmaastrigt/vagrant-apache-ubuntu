@@ -1,7 +1,13 @@
 ---
 php_conf_path: /etc/php5/apache2
 php_extension_conf_path: /etc/php5/apache2/conf.d
+php_cli_extension_conf_path: /etc/php5/cli/conf.d
 php_apc_conf_filename: 20-apc.ini
+php_shared_extension_path: /etc/php5/mods-available
+php_xdebug_conf_filename: xdebug.ini
+php_xdebug_conf_linkname: 20-xdebug.ini
+php_xdebug_remote_host: 192.168.1.126
+php_xdebug_ide_key: PHPSTORM
 __php_packages:
   - php5
   - libapache2-mod-php5
@@ -10,9 +16,6 @@ __php_packages:
   - php5-common
   - php5-curl
   - php5-dev
+  - php5-fpm
   - php5-gd
-  - php5-mysql
-  - php5-intl
-  - php5-mongo
-  - php5-xdebug
 php_webserver_daemon: "apache2"

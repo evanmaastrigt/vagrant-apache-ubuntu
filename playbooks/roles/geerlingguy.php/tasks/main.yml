@@ -15,10 +15,6 @@
   notify: restart webserver
   when: ansible_os_family == 'RedHat'
 
-- name: Run sudo apt-get update on Debian based machines.
-  shell: sudo apt-get update
-  when: ansible_os_family == 'Debian'
-
 - name: Ensure PHP packages are installed (Debian).
   apt: >
     name={{ item }}
@@ -27,14 +23,37 @@
   notify: restart webserver
   when: ansible_os_family == 'Debian'
 
-- name: Place PHP configuration files in place.
+- name: Place PHP configuration file in place.
   template: >
-    src={{ item.src }}
-    dest={{ item.dest }}
+    src=php.ini.j2
+    dest={{ php_conf_path }}/php.ini
     owner=root group=root mode=644
-  with_items:
-  - { src: php.ini.j2, dest: "{{ php_conf_path }}/php.ini" }
-  - { src: apc.ini.j2, dest: "{{ php_extension_conf_path }}/{{ php_apc_conf_filename }}" }
+  notify: restart webserver
+  
+- name: Place APC configuration file in place.
+  template: >
+    src=apc.ini.j2
+    dest={{ php_extension_conf_path }}/{{ php_apc_conf_filename }}
+    owner=root group=root mode=644
+  when: php_enable_apc
+  notify: restart webserver
+
+- name: Place xdebug configuration file in place.
+  template: >
+    src=xdebug.ini.j2
+    dest={{ php_shared_extension_path }}/{{ php_xdebug_conf_filename }}
+    owner=root group=root mode=644
+  when: php_enable_xdebug
+  notify: restart webserver
+
+- name: Link to xdebug configfile from php-apache config.d
+  file: path={{ php_extension_conf_path }}/{{ php_xdebug_conf_linkname }} src={{ php_shared_extension_path }}/{{ php_xdebug_conf_filename }} state=link force=yes
+  when: php_enable_xdebug
+  notify: restart webserver
+
+- name: Link to xdebug configfile from php-cli config.d
+  file: path={{ php_cli_extension_conf_path }}/{{ php_xdebug_conf_linkname }} src={{ php_shared_extension_path }}/{{ php_xdebug_conf_filename }} state=link force=yes
+  when: php_enable_xdebug
   notify: restart webserver
 
 - name: Ensure php-fpm is started and enabled at boot (if configured).

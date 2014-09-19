@@ -1,0 +1,16 @@
+zend_extension=xdebug.so
+xdebug.remote_enable=1
+xdebug.remote_host={{ php_xdebug_remote_host }}
+;xdebug.remote_connect_back=1
+;uncomment if your workstation has a dynamic IP
+xdebug.remote_port=9000
+;default value, change it if you need to
+xdebug.profiler_enable=0
+;to always profile, set to 1 & comment out xdebug.profiler_enable_trigger
+xdebug.profiler_output_name=xdebug-profile.%R.%t
+;ensures unique filenames for output
+xdebug.profiler_output_dir="/var/www/xdebug-profiles"
+xdebug.profiler_enable_trigger=1
+xdebug.max_nesting_level=250
+xdebug.remote_connect_back=1
+xdebug.idekey="{{ php_xdebug_ide_key }}"
